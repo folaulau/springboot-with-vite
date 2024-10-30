@@ -1,6 +1,8 @@
 cd frontend
 npm run build
 
-cp -r build/* ../src/main/resources/static
+cp -r dist/* ../src/main/resources/static
+
+cd ..
 
 mvn clean package
