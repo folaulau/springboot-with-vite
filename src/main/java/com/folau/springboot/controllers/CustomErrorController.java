@@ -2,6 +2,9 @@ package com.folau.springboot.controllers;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -28,9 +31,7 @@ public class CustomErrorController implements ErrorController {
 
         if (originalUri != null && originalUri.contains("/api")) {
             // Return a JSON response for API calls
-            return new ResponseEntity<>(
-                    new ErrorResponse("Resource not found", 200),
-                    HttpStatus.OK);
+            return new ResponseEntity<>(new ErrorResponse("Resource not found"),HttpStatus.NOT_FOUND);
         } else {
             // Redirect to the index.html for non-API URLs
             //return "redirect:/index.html";  // Ensure your index.html is in /static or /templates
@@ -39,31 +40,11 @@ public class CustomErrorController implements ErrorController {
     }
 
     // Custom error response class for JSON response
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class ErrorResponse {
         private String message;
-        private int statusCode;
-
-        public ErrorResponse(String message, int statusCode) {
-            this.message = message;
-            this.statusCode = statusCode;
-        }
-
-        // Getters and setters...
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public int getStatusCode() {
-            return statusCode;
-        }
-
-        public void setStatusCode(int statusCode) {
-            this.statusCode = statusCode;
-        }
     }
 }
 
