@@ -2,6 +2,7 @@ package com.folau.springboot.controllers;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class CustomErrorController implements ErrorController {
     private static final String PATH = "/error";
 
     @RequestMapping(PATH)
-    public Object handleError(HttpServletRequest request) {
+    public Object handleError(HttpServletRequest request, HttpServletResponse response) {
         String originalUri = (String) request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI);
 
         log.info("handleError: originalUri:{}",originalUri);
@@ -33,6 +34,9 @@ public class CustomErrorController implements ErrorController {
         } else {
             // Redirect to the index.html for non-API URLs
             //return "redirect:/index.html";  // Ensure your index.html is in /static or /templates
+            request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.OK.value());  // Set 200 status
+            response.setStatus(HttpStatus.OK.value());
+            log.info("forwarding to /index.html on page not found");
             return "forward:/index.html";
         }
     }
