@@ -25,7 +25,7 @@ public class CustomErrorController implements ErrorController {
     public Object handleError(HttpServletRequest request) {
         String originalUri = (String) request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI);
 
-        log.info("ErrorController: originalUri:{}",originalUri);
+        log.info("handleError: originalUri:{}",originalUri);
 
         if (originalUri != null && originalUri.startsWith("/api")) {
             // Return a JSON response for API calls
