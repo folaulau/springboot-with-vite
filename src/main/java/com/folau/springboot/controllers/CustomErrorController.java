@@ -29,7 +29,7 @@ public class CustomErrorController implements ErrorController {
 
         log.info("ErrorController: uri={}, statusCode={}, originalUri:{}", uri, statusCode, originalUri);
 
-        if (originalUri != null && originalUri.contains("/api")) {
+        if (originalUri != null && originalUri.startsWith("/api")) {
             // Return a JSON response for API calls
             return new ResponseEntity<>(new ErrorResponse("Resource not found"),HttpStatus.NOT_FOUND);
         } else {
