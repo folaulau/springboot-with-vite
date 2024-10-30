@@ -22,12 +22,10 @@ public class CustomErrorController implements ErrorController {
     private static final String PATH = "/error";
 
     @RequestMapping(PATH)
-    public Object handleError(HttpServletRequest request, WebRequest webRequest, Model model) {
-        String uri = request.getRequestURI().toString();
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+    public Object handleError(HttpServletRequest request) {
         String originalUri = (String) request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI);
 
-        log.info("ErrorController: uri={}, statusCode={}, originalUri:{}", uri, statusCode, originalUri);
+        log.info("ErrorController: originalUri:{}",originalUri);
 
         if (originalUri != null && originalUri.startsWith("/api")) {
             // Return a JSON response for API calls
