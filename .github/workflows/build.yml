@@ -1,0 +1,43 @@
+name: Build frontend and API
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      ACTIVE_ENV: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build
+          ls -la
+          cp -r dist/* ../src/main/resources/static
+
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto' # See 'Supported distributions' for available options
+          java-version: '17'
+
+      - name: Build API
+        run: |
+          mvn clean package
+          ls -la
+          ls -la src/main/resources/static
+          
