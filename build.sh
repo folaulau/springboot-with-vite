@@ -5,4 +5,4 @@ cp -r dist/* ../src/main/resources/static
 
 cd ..
 
-mvn clean package
+#mvn clean package
