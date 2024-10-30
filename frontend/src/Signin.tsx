@@ -5,7 +5,7 @@ function Signin() {
 
   return (
     <>
-      <h3>Home {count}</h3>
+      <h3>Sign In {count}</h3>
     </>
   )
 }
