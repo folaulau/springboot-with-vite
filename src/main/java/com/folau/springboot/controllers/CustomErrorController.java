@@ -34,9 +34,8 @@ public class CustomErrorController implements ErrorController {
         } else {
             // Redirect to the index.html for non-API URLs
             //return "redirect:/index.html";  // Ensure your index.html is in /static or /templates
-            request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.OK.value());  // Set 200 status
             response.setStatus(HttpStatus.OK.value());
-            log.info("forwarding to /index.html on page not found");
+            log.info("forwarding to /index.html on page not found. react app will handle the routing");
             return "forward:/index.html";
         }
     }
